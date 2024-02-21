@@ -20,7 +20,13 @@ namespace Depra.Observables
 		public TValue Value
 		{
 			get => _value;
-			set => Changed?.Invoke(_value = value);
+			set
+			{
+				if (!_value.Equals(value))
+				{
+					Changed?.Invoke(_value = value);
+				}
+			}
 		}
 	}
 }
