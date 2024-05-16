@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Depra.Observables
+namespace Depra.Reactive
 {
 	public interface IReactive
 	{

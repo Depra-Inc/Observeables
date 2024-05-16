@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Depra.Observables
+namespace Depra.Reactive
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class ObservableAttribute : Attribute

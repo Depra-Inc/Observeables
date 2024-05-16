@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Depra.Observables
+namespace Depra.Reactive
 {
 	public sealed class ReactiveProperty<TValue> : IReactiveProperty<TValue>
 	{
