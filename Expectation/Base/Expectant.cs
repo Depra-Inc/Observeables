@@ -25,7 +25,7 @@ namespace Depra.Expectation
 				return;
 			}
 
-			_listeners.Clear();
+			_listeners?.Clear();
 			_disposed = true;
 		}
 

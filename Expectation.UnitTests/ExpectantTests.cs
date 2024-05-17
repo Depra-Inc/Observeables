@@ -93,4 +93,18 @@ public sealed class ExpectantTests
 		// Assert:
 		invoked.Should().BeFalse();
 	}
+
+	[Fact]
+	public void Dispose_WhenReady_ShouldNotThrow()
+	{
+		// Arrange:
+		var expectant = new Expectant();
+		expectant.SetReady();
+
+		// Act:
+		var act = () => expectant.Dispose();
+
+		// Assert:
+		act.Should().NotThrow();
+	}
 }
