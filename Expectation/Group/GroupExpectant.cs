@@ -64,7 +64,7 @@ namespace Depra.Expectation
 				Guard.Against(_built, () => new ExpectantAlreadyBuilt());
 				Guard.Against(_ready.IsReady(), () => new ExpectantAlreadyCompleted());
 
-				if (Expectants.Add(expectant) == false)
+				if (expectant == null || Expectants.Add(expectant) == false)
 				{
 					return this;
 				}
