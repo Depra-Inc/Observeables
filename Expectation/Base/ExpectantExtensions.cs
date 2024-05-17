@@ -7,10 +7,8 @@ namespace Depra.Expectation
 {
 	public static class ExpectantExtensions
 	{
-		public static void Subscribe(this IExpectant self, Action callback) =>
-			self.Subscribe(callback, callback);
+		public static void Subscribe(this IExpectant self, Action callback) => self.Subscribe(callback, callback);
 
-		public static void Unsubscribe(this IExpectant self, Action callback) =>
-			self.Unsubscribe(callback);
+		public static void Unsubscribe(this IExpectant self, Action callback) => self.Unsubscribe(callback);
 	}
 }

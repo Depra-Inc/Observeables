@@ -20,23 +20,7 @@ namespace Depra.Expectation
 
 			protected HashSet<IExpectant> Expectants { get; } = new();
 
-			public IGroupExpectant With(IExpectant expectant)
-			{
-				Guard.Against(_built, () => new ExpectantAlreadyBuilt());
-				Guard.Against(_ready.IsReady(), () => new ExpectantAlreadyCompleted());
-
-				if (Expectants.Add(expectant) == false)
-				{
-					return this;
-				}
-
-				if (expectant.IsReady() == false)
-				{
-					expectant.Subscribe(TryRefresh);
-				}
-
-				return this;
-			}
+			public T With(IExpectant expectant) => (T) ((IGroupExpectant) this).With(expectant);
 
 			public IExpectant Build()
 			{
@@ -74,6 +58,24 @@ namespace Depra.Expectation
 			void IExpectant.Subscribe(object key, Action callback) => _ready.Subscribe(key, callback);
 
 			void IExpectant.Unsubscribe(object key) => _ready.Unsubscribe(key);
+
+			IGroupExpectant IGroupExpectant.With(IExpectant expectant)
+			{
+				Guard.Against(_built, () => new ExpectantAlreadyBuilt());
+				Guard.Against(_ready.IsReady(), () => new ExpectantAlreadyCompleted());
+
+				if (Expectants.Add(expectant) == false)
+				{
+					return this;
+				}
+
+				if (expectant.IsReady() == false)
+				{
+					expectant.Subscribe(TryRefresh);
+				}
+
+				return this;
+			}
 		}
 
 		public sealed class And : Abstract<And>
