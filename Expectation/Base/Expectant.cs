@@ -11,7 +11,7 @@ namespace Depra.Expectation
 	[DebuggerDisplay("State: {IsReady()}")]
 	public sealed class Expectant : IExpectant
 	{
-		public static readonly IExpectant COMPLETED = new Expectant { _listeners = null };
+		public static readonly IExpectant COMPLETED = new CompletedExpectant();
 		public static readonly IExpectant UNCOMPLETED = new UncompletedExpectant();
 
 		private bool _disposed;
@@ -80,6 +80,17 @@ namespace Depra.Expectation
 			}
 		}
 
+		private sealed class CompletedExpectant : IExpectant
+		{
+			void IDisposable.Dispose() { }
+
+			bool IExpectant.IsReady() => true;
+
+			void IExpectant.Subscribe(object key, Action callback) { }
+
+			void IExpectant.Unsubscribe(object key) { }
+		}
+
 		private sealed class UncompletedExpectant : IExpectant
 		{
 			bool IExpectant.IsReady() => false;
@@ -88,7 +99,7 @@ namespace Depra.Expectation
 
 			void IExpectant.Unsubscribe(object key) { }
 
-			void IDisposable.Dispose() => throw new InvalidOperationException();
+			void IDisposable.Dispose() { }
 		}
 	}
 }
